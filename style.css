@@ -15,6 +15,9 @@ body {
     align-items: center;
     box-shadow: gray 1px 1px;
 }
+#spacin{
+    margin: 10px;
+}
 #listContainer{
     display: flex;
     align-items: center;

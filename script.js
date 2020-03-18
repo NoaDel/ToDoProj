@@ -41,14 +41,13 @@ function createList(listName, taskArray){
     deleteCompleted.className = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent";
     deleteCompleted.value = "Delete Completed Tasks";
     deleteCompleted.type = 'button';
+    deleteCompleted.onclick = clearCompletedLocal;
     header.appendChild(tasknameBox);
     header.appendChild(addTaskButton);
     header.appendChild(deleteCompleted);
     header.appendChild(removeListButton);
     list.appendChild(header);
     document.getElementById('listContainer').appendChild(list);
-    console.log(listName);
-    console.log(taskArray);
     if(taskArray != null){
         for(var i = 0; i < taskArray.length; i++){
             createTaskLoad(taskArray[i][0], taskArray[i][1],list);
@@ -138,11 +137,8 @@ function createTaskLoad(taskTextValue, completedTaskValue, elem){
 function deleteThis(){
     this.parentNode.parentNode.remove(this);
 }
-// function deleteThisList(){
-//     this.parentNode.parentNode.remove(this.parentNode);
-// }
 function deleteThisList(){
-    this.class = "test";
+    //this.class = "test";
     this.remove(parentNode.removeChild(this));
 }
 function animat(){
@@ -162,35 +158,41 @@ function save(){
         window.localStorage.setItem("item"+i,temp1)
     }
 }
+function clearCompleted(){
+    var webItems = document.getElementById('listContainer');
+    console.log(webItems.childNodes);
+    console.log(webItems.childNodes.length);
+    for(let i = 0; i < webItems.childNodes.length - 1; i++){
+    //console.log(webItems.childNodes[i+1].childNodes.length);
+        for(let j = 0; j < webItems.childNodes[i+1].childNodes.length - 1; j++){
+            console.log(webItems.childNodes[i+1].childNodes[j+1]);
+            if(webItems.childNodes[i+1].childNodes[j+1].childNodes[1].childNodes[0].checked == true){
+                webItems.childNodes[i+1].childNodes[j+1].remove();
+			}
+		}
+        
+	}
+}
+function clearCompletedLocal(){
+    console.log(this.parentNode.parentNode.childNodes);
+    for(let i = 1; i < this.parentNode.parentNode.childNodes.length; i++){
+        if(this.parentNode.parentNode.childNodes[i].childNodes[1].childNodes[0].checked == true){
+            this.parentNode.parentNode.childNodes[i].remove();
+		}
+	}
+}
 window.onload = function(){
     var arrayinside = [];
     for(let i = 0; i < this.localStorage.length; i++){
         var tempor = this.localStorage.getItem('item'+i).split(',');
-        //for(let z = 1; z < (tempor.length) /2; z++){
-        //    for(var j = 2; j < tempor.length; j+= 2){
-        //        var arrayinsideinside = [];
-        //        arrayinsideinside.push(tempor[j-1] );
-        //        arrayinsideinside.push(tempor[j] );
-        //        console.log(j);
-        //    }
-        //    arrayinside.push(arrayinsideinside);
-        //}
             for(var j = 2; j < tempor.length; j+= 2){
                 var arrayinsideinside = [];
                 arrayinsideinside.push(tempor[j-1] );
                 arrayinsideinside.push(tempor[j] );
-                console.log(j);
             arrayinside.push(arrayinsideinside);
             }
         this.createList(tempor[0], arrayinside);
         arrayinside = [];
     }
-    //let temp = this.createList("Yeet Yote", [["Test", "false"]]);
-    // let temp1 = this.createList("Yeet Yote1", [["Test1", false],["NoTest1",false],["NoTester1",true]]);
-    // let temp2 = this.createList("Yeet Yote2", [["Test2", false],["NoTest2",false],["NoTester2",true]]);
-    // console.log(document.getElementById('listContainer').childNodes[1].childNodes[0].childNodes[0].childNodes[0].value);
-    // console.log(document.getElementById('listContainer').childNodes[1]);
-    // console.log(document.getElementById('listContainer').childNodes[1].childNodes[1].childNodes[0].childNodes[0].value);
-    // console.log(document.getElementById('listContainer').childNodes[1].childNodes[1].childNodes[1].childNodes[0].checked);
     
 }
