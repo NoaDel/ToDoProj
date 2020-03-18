@@ -166,18 +166,26 @@ window.onload = function(){
     var arrayinside = [];
     for(let i = 0; i < this.localStorage.length; i++){
         var tempor = this.localStorage.getItem('item'+i).split(',');
-        for(let z = 1; z < (tempor.length) /2; z++){
-            for(let j = z*2; j < tempor.length; j+= 2){
+        //for(let z = 1; z < (tempor.length) /2; z++){
+        //    for(var j = 2; j < tempor.length; j+= 2){
+        //        var arrayinsideinside = [];
+        //        arrayinsideinside.push(tempor[j-1] );
+        //        arrayinsideinside.push(tempor[j] );
+        //        console.log(j);
+        //    }
+        //    arrayinside.push(arrayinsideinside);
+        //}
+            for(var j = 2; j < tempor.length; j+= 2){
                 var arrayinsideinside = [];
+                arrayinsideinside.push(tempor[j-1] );
                 arrayinsideinside.push(tempor[j] );
-                arrayinsideinside.push(tempor[j+1] );
-            }
+                console.log(j);
             arrayinside.push(arrayinsideinside);
-        }
+            }
         this.createList(tempor[0], arrayinside);
         arrayinside = [];
     }
-    let temp = this.createList("Yeet Yote", [["Test", "false"]]);
+    //let temp = this.createList("Yeet Yote", [["Test", "false"]]);
     // let temp1 = this.createList("Yeet Yote1", [["Test1", false],["NoTest1",false],["NoTester1",true]]);
     // let temp2 = this.createList("Yeet Yote2", [["Test2", false],["NoTest2",false],["NoTester2",true]]);
     // console.log(document.getElementById('listContainer').childNodes[1].childNodes[0].childNodes[0].childNodes[0].value);
